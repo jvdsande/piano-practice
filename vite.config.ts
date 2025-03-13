@@ -17,6 +17,11 @@ export default defineConfig({
           type: 'image/png',
           sizes: 'any',
           purpose: 'maskable any'
+        },
+        {
+          src: '/vite.svg',
+          type: 'image/svg+xml',
+          sizes: 'any'
         }
       ],
       start_url: '/'
