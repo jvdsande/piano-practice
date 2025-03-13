@@ -1,0 +1,159 @@
+#keyboard {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--keyboard-height);
+    display: flex;
+    border-top: 4px solid var(--color-gray-8);
+
+    font-family: "Sono", sans-serif;
+
+    .key {
+        z-index: 10;
+        position: relative;
+        background: white;
+        border-right: 1px solid var(--color-gray-5);
+        height: 100%;
+        width: calc(100% / var(--nb-whites));
+        flex: none;
+
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        color: var(--color-gray-4);
+        padding-bottom: 0.5rem;
+        border-radius: 0 0 4px 4px;
+
+        font-size: calc(1vw / var(--nb-whites) * 52);
+
+        &.right {
+            --private-hint: var(--right-hint);
+            --private-white: var(--right-white);
+            --private-black: var(--right-black);
+        }
+        &.left {
+            --private-hint: var(--left-hint);
+            --private-white: var(--left-white);
+            --private-black: var(--left-black);
+        }
+
+        /* Candidate notes */
+        [data-guiding-hand='right'] &.right,
+        [data-guiding-hand='left'] &.left,
+        [data-guiding-hand='right']:not([data-non-guiding-opacity='0']) &.left,
+        [data-guiding-hand='left']:not([data-non-guiding-opacity='0']) &.right {
+            color: black;
+            background-color: var(--private-hint);
+
+            [data-moving] & {
+                color: white;
+                font-weight: bold;
+                background-color: var(--private-white);
+                border-color: var(--private-black);
+
+                .spark {
+                    display: block;
+                }
+                &::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background:
+                            linear-gradient(87deg, #0008 0%, #0008 15%, transparent 40%, transparent 100%),
+                            linear-gradient(to left, #0004 0%, transparent 15%, transparent 100%);
+                }
+            }
+        }
+    }
+
+    .accidental {
+        border: none;
+        width: calc(100% / var(--nb-notes));
+        height: 68%;
+        transform: translateX(-50%);
+        margin-right: calc(-100% / var(--nb-notes));
+        box-shadow: 1px 1px 4px #0008;
+        z-index: 20;
+
+        font-size: 0.8vw;
+
+        background-image:
+                linear-gradient(to right, #ccc4 0%, transparent 15%, transparent 100%),
+                linear-gradient(to left, #ccc4 0%, transparent 15%, transparent 100%),
+                linear-gradient(to top, #ccc6 0%, #ccc6 4%, transparent 10%, transparent 100%);
+        background-color: black;
+
+        > section > span:nth-child(2) {
+            font-size: 0.8em;
+        }
+        > section > span:last-child {
+            display: none;
+        }
+
+        &.D, &.A {
+            transform: translateX(-35%)
+        }
+        &.C, &.F {
+            transform: translateX(-65%)
+        }
+
+        /* Candidate notes */
+        [data-guiding-hand='right'] &.right,
+        [data-guiding-hand='left'] &.left,
+        [data-guiding-hand='right']:not([data-non-guiding-opacity='0']) &.left,
+        [data-guiding-hand='left']:not([data-non-guiding-opacity='0']) &.right {
+            background-color: var(--private-hint);
+            color: black;
+
+            [data-moving] & {
+                background-color: var(--private-black);
+                color: white;
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    inset: 0;
+                    background:
+                            linear-gradient(to right, #0004 0%, transparent 15%, transparent 100%),
+                            linear-gradient(to left, #0004 0%, transparent 15%, transparent 100%),
+                            linear-gradient(to top, #0006 0%, #0006 4%, transparent 10%, transparent 100%);
+                }
+            }
+        }
+    }
+
+    .C:not(.accidental) {
+        color: var(--color-gray-6);
+    }
+    .C4:not(.accidental) {
+        color: var(--color-gray-9);
+    }
+
+    .spark {
+        display: none;
+        position: absolute;
+        width: 130%;
+        aspect-ratio: 1;
+        background: radial-gradient(circle at center, #fffe, transparent 75%);
+        top: 0;
+        transform: translateY(calc(-50% - 4px)) scaleY(0.7);
+        animation: wobble linear infinite .3s;
+        z-index: 10000;
+    }
+
+    .marker {
+        z-index: 5;
+
+        &::before {
+            content: '';
+            display: block;
+            position: fixed;
+            top: 0;
+            bottom: var(--keyboard-height);
+            width: 1px;
+            background: var(--color-gray-9);
+            z-index: -100;
+        }
+    }
+}

@@ -1,0 +1,105 @@
+#score {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: var(--keyboard-height);
+
+    display: flex;
+    flex-direction: column-reverse;
+
+    font-family: "Sono", sans-serif;
+
+    .note, .spacer {
+        flex: none;
+        height: 100%;
+        width: calc(100% / var(--nb-whites));
+        position: absolute;
+
+        &.accidental {
+            width: calc(100% / var(--nb-notes));
+            transform: translateX(-50%);
+            margin-right: calc(-100% / var(--nb-notes));
+
+            &.D, &.A {
+                transform: translateX(-35%)
+            }
+            &.C, &.F {
+                transform: translateX(-65%)
+            }
+        }
+    }
+
+    .note {
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        color: #DDD;
+        font-size: min(calc(2.25vw / var(--nb-whites) * 52), 2rem);
+
+        -webkit-text-stroke: 0.25em #000;
+        text-stroke: 0.25em #000;
+        paint-order: stroke fill;
+        border: 1px solid black;
+
+        container-type: size;
+
+        > section {
+            display: flex;
+            margin-bottom: -0.05em;
+        }
+
+        &:not(.accidental) > section {
+            @container (max-height: 2rem) {
+                font-size: min(calc(2.25vw / var(--nb-whites) * 52), 1.5rem);
+            }
+        }
+
+        > section > span:nth-child(2) {
+            font-size: 0.8em;
+            line-height: 1.8em;
+        }
+        > section > span:last-of-type {
+            display: none;
+        }
+
+        background-color: var(--right-white);
+        border-radius: 6px;
+
+        &.accidental {
+            font-size: calc(1.5vw / var(--nb-whites) * 52);
+            background-color: var(--right-black);
+
+            > section {
+                @container (max-height: 2rem) {
+                    font-size: min(calc(1.5vw / var(--nb-whites) * 52), 1.5rem);
+                }
+            }
+        }
+    }
+
+    .left .note {
+        background-color: var(--left-white);
+    }
+    .left .note.accidental {
+        background-color: var(--left-black);
+    }
+
+    [data-guiding-hand='right'] & .left,
+    [data-guiding-hand='left'] & .right {
+        opacity: var(--non-guiding-hand-opacity);
+    }
+}
+
+@keyframes wobble {
+    0% {
+        width: 130%;
+    }
+    50% {
+        width: 160%;
+    }
+    100% {
+        width: 130%;
+    }
+}

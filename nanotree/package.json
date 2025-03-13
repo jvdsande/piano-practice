@@ -1,0 +1,12 @@
+{
+  "name": "@nanotree/core",
+  "description": "",
+  "license": "ISC",
+  "version": "0.0.0",
+  "private": true,
+  "main": "src/index.ts",
+  "types": "index.d.ts",
+  "scripts": {
+    "start": "echo 'hello'"
+  }
+}

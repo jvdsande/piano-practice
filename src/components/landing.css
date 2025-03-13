@@ -1,0 +1,40 @@
+#landing {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+
+    color: white;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &[aria-hidden='true'] {
+        display: none;
+    }
+
+    label {
+        width: auto;
+    }
+    label input {
+        display: none;
+    }
+    label div {
+        white-space: nowrap;
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        background-color: var(--color-gray-8);
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+    }
+
+    .settings {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+}
