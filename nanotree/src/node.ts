@@ -2,6 +2,7 @@ import { setup as Setup } from './setup.ts'
 import {
   ElementEvents,
   ElementProperties,
+  ElementStaticProperties,
   EventHandler,
   NanotreeNode,
   Primitive
