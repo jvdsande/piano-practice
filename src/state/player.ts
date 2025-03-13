@@ -15,6 +15,10 @@ class MidiPlayer {
   private validNotes: Map<string, boolean> = new Map()
 
   constructor() {
+    this.synth = this.setupSynth()
+  }
+
+  setupSynth() {
     this.synth = new Tone.Sampler({
       urls: {
         // A
@@ -59,6 +63,8 @@ class MidiPlayer {
       baseUrl: '/piano-practice/audio/'
     })
       .toDestination()
+
+    return this.synth
   }
 
   setMidi(midi: Midi) {
@@ -127,6 +133,8 @@ class MidiPlayer {
     }
 
     settings.$playing.set(true)
+    this.setupSynth()
+    await Tone.loaded()
     Tone.getTransport().start(undefined, Tone.Ticks(this.currentTick).toSeconds())
   }
 
@@ -134,6 +142,7 @@ class MidiPlayer {
     settings.$playing.set(false)
     this.currentTick = Tone.getTransport().ticks
     Tone.getTransport().pause()
+    this.synth.dispose()
   }
 
   public setTick(tick: number) {

@@ -14,13 +14,13 @@ export default defineConfig({
       theme_color: '#5C7CFA',
       icons: [
         {
-          src: '/vite.png',
+          src: '/piano-practice/vite.png',
           type: 'image/png',
           sizes: 'any',
           purpose: 'maskable any'
         }
       ],
-      start_url: '/'
+      start_url: '/piano-practice/'
     }
   })]
 })

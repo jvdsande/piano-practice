@@ -21,7 +21,7 @@ function advanceScore() {
     elapsed.$elapsedTicks.set(Player.getTicks())
   }
 
-  if (Player.getTicks() >= endTick) {
+  if (Player.getTicks() >= endTick && settings.$playing.get()) {
     Player.pause()
     return
   }
