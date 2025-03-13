@@ -60,7 +60,7 @@ class MidiPlayer {
         'F#7': 'Fs7.mp3'
       },
       release: 1,
-      baseUrl: '/piano-practice/audio/'
+      baseUrl: '/audio/'
     })
       .toDestination()
 
