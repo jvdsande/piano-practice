@@ -60,7 +60,10 @@ export const Range = (
       min={$$.with([$min], m => m * factor)}
       max={$$.with([$max], m => m * factor)}
       value={$$.with([$atom], m => m * factor)}
-      on:input={(e) => events.input?.(+e.currentTarget.value)}
+      on:input={(e) => {
+        $atom.set(+e.currentTarget.value)
+        events.input?.(+e.currentTarget.value)
+      }}
     />
     <small>{$children[1] ?? $children[0] ?? ''}</small>
   </label>

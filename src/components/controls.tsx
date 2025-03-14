@@ -60,7 +60,7 @@ const ProgressBar = () => (
     $atom={elapsed.$elapsedTicks}
     $min={$$.single(0)}
     $max={track.$endTime}
-    on:input={Player.setTick}
+    on:input={(tick) => Player.setTick(tick)}
   />
 )
 
