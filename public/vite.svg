@@ -20,12 +20,12 @@
     <rect x="160" y="122" width="24" height="40" fill="#ff6b6b" rx="6" />
     <rect x="119" y="26" width="16" height="138" fill="#ff6b6b" rx="4" />
 
-    <rect x="-2" y="140" width="34" height="128" fill="white" stroke-width="4" stroke="black" />
+    <rect x="-2" y="140" width="34" height="128" fill="#74c0fc" stroke-width="4" stroke="black" />
     <rect x="32" y="140" width="32" height="128" fill="white" stroke-width="4" stroke="black" />
     <rect x="64" y="140" width="32" height="128" fill="white" stroke-width="4" stroke="black" />
     <rect x="96" y="140" width="32" height="128" fill="white" stroke-width="4" stroke="black" />
     <rect x="128" y="140" width="32" height="128" fill="white" stroke-width="4" stroke="black" />
-    <rect x="160" y="140" width="32" height="128" fill="white" stroke-width="4" stroke="black" />
+    <rect x="160" y="140" width="32" height="128" fill="#ffa8a8" stroke-width="4" stroke="black" />
     <rect x="192" y="140" width="32" height="128" fill="white" stroke-width="4" stroke="black" />
     <rect x="224" y="140" width="34" height="128" fill="white" stroke-width="4" stroke="black" />
 
@@ -37,8 +37,8 @@
     <rect x="57" y="143" width="16" height="70" fill="black" rx="4" />
     <rect x="57" y="143" width="16" height="64" fill="black" />
 
-    <rect x="119" y="143" width="16" height="70" fill="black" rx="4" />
-    <rect x="119" y="143" width="16" height="64" fill="black" />
+    <rect x="119" y="144" width="16" height="70" fill="#ffa8a8" rx="4" />
+    <rect x="119" y="144" width="16" height="64" fill="#ffa8a8" />
 
     <rect x="151" y="143" width="17" height="70" fill="black" rx="4" />
     <rect x="151" y="143" width="17" height="64" fill="black" />
