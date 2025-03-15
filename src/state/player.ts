@@ -99,8 +99,9 @@ class MidiPlayer {
 
           const isGuidingHand = index === track.$tracks.get().indexes[settings.$guidingHand.get()]
           const nonGuidingHandVolume = settings.$nonGuidingVolume.get() / 100
+          const guidingHandVolume = settings.$guided.get() ? 0 : 1
           const masterVolume = settings.$masterVolume.get() / 100
-          const volume = isGuidingHand ? masterVolume : nonGuidingHandVolume * masterVolume
+          const volume = isGuidingHand ? guidingHandVolume * masterVolume : nonGuidingHandVolume * masterVolume
 
           const playNote = (t?: number) => this.synth.triggerAttackRelease(
             note.name,
@@ -146,6 +147,8 @@ class MidiPlayer {
   }
 
   public pause(dispose = true) {
+    document.querySelector<HTMLAudioElement>('#audio')?.pause()
+
     settings.$playing.set(false)
     this.currentTick = Tone.getTransport().ticks
     Tone.getTransport().pause()
