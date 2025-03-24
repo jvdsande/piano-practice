@@ -44,6 +44,7 @@
         border: 1px solid black;
 
         container-type: size;
+        box-shadow: inset 2px 2px 2px #bbba, inset -1px -1px 2px #8888;
 
         > section {
             display: flex;
@@ -70,6 +71,7 @@
         &.accidental {
             font-size: calc(1.5vw / var(--nb-whites) * 52);
             background-color: var(--right-black);
+            box-shadow: inset 2px 2px 2px #bbb7, inset -1px -1px 2px #8884;
 
             > section {
                 @container (max-height: 2rem) {

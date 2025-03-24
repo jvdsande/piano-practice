@@ -51,7 +51,9 @@ export const Score = () => (
     id="score"
     style={$$.with(
       [elapsed.$elapsedTicks, settings.$audioOffset, settings.$guided],
-      (ad, offset, guided) => `transform: translateY(${(ad - (!guided ? offset : 30) - 20) / TICK_PER_PIXEL}px);`
+      (ad, offset, guided) => style({
+        transform: `translateY(${(ad - (!guided ? offset : 30) - 20) / TICK_PER_PIXEL}px)`
+      })
     )}
   >
     <HandScore hand="right" $hand={track.$rightHand} />

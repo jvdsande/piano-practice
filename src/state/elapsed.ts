@@ -6,10 +6,8 @@ import * as settings from './settings.ts'
 
 export const $elapsedTicks = atom(0)
 
-const $currentTempo = computed([$elapsedTicks, track.$tempos], (elapsedTicks, tempos) => {
-  return ([...tempos]
-    .reverse()
-    .find(t => t.from < elapsedTicks) ?? tempos[0] ?? { bpm: 120 }).bpm
+const $currentTempo = computed([track.$tempos], (tempos) => {
+  return (tempos[0] ?? { bpm: 120 }).bpm
 })
 
 export const $played = computed([track.$rightHand, track.$leftHand, $elapsedTicks, settings.$audioOffset], (right, left, elapsedTicks, audioOffset) => {

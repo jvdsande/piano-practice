@@ -32,12 +32,14 @@ export const loadMidiFile = async (e: any) => {
   const arr = await target.files?.item(0)?.arrayBuffer()
   const midi = new Midi(arr)
 
+
+  const ratio = (midi.tracks[0]?.notes[0]?.durationTicks ?? 0) / (midi.tracks[0]?.notes[0]?.duration ?? 1)
   const tracks = midi.tracks.map((track) => track.notes.map((note) => ({
     octave: note.octave,
     pitch: note.pitch.replace('♯', '#'),
     key: note.pitch.replace('♯', '#') + note.octave,
-    start: note.ticks,
-    duration: note.durationTicks,
+    start: note.time * ratio,
+    duration: note.duration * ratio,
     ratio: 1
   })))
 

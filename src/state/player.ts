@@ -13,6 +13,7 @@ class MidiPlayer {
   private awaitedNotes: Set<string> = new Set()
   private onPlayNotes: Set<() => void> = new Set()
   private validNotes: Map<string, boolean> = new Map()
+  private ratio: number = 1
 
   constructor() {
     this.synth = this.setupSynth()
@@ -84,6 +85,8 @@ class MidiPlayer {
     Tone.getTransport().bpm.value = midi.header.tempos.length > 0 ? midi.header.tempos[0].bpm : 120
     Tone.getTransport().PPQ = midi.header.ppq
 
+    this.ratio = (midi.tracks[0]?.notes[0]?.durationTicks ?? 0) / (midi.tracks[0]?.notes[0]?.duration ?? 1)
+
     elapsed.$currentBpm.listen((val) => {
       if (val) {
         Tone.getTransport().bpm.value = val
@@ -105,7 +108,7 @@ class MidiPlayer {
 
           const playNote = (t?: number) => this.synth.triggerAttackRelease(
             note.name,
-            Tone.Ticks(note.durationTicks).toSeconds(),
+            Tone.Ticks(note.duration * this.ratio).toSeconds(),
             t,
             note.velocity * volume
           )
@@ -116,7 +119,7 @@ class MidiPlayer {
           } else {
             playNote(time)
           }
-        }, Tone.Ticks(note.ticks).toSeconds())
+        }, Tone.Ticks(note.time * this.ratio).toSeconds())
       })
     })
   }
@@ -154,7 +157,7 @@ class MidiPlayer {
     Tone.getTransport().pause()
 
     if (dispose) {
-      this.synth.dispose()
+      this.synth?.dispose()
       this.synth = null as any
     }
   }
@@ -194,11 +197,11 @@ class MidiPlayer {
   }
 
   public rewind() {
-    this.setTick(Tone.Time(Math.max(0, Tone.getTransport().seconds - 2), 's').toTicks())
+    this.setTick(Math.max(0, Tone.getTransport().ticks - 2 * this.ratio))
   }
 
   public forward() {
-    this.setTick(Tone.Time(Tone.getTransport().seconds + 2, 's').toTicks())
+    this.setTick(Tone.getTransport().ticks + 2 * this.ratio)
   }
 }
 
