@@ -9,6 +9,7 @@
     flex-direction: column-reverse;
 
     font-family: "Sono", sans-serif;
+    transition: transform 20ms linear;
 
     .note, .spacer {
         flex: none;
