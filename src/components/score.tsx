@@ -51,8 +51,8 @@ export const Score = () => (
     id="score"
     style={$$.with(
       [elapsed.$elapsedTicks, settings.$audioOffset, settings.$guided],
-      (ad, offset, guided) => style({
-        transform: `translateY(${(ad - (!guided ? offset : 30) - 20) / TICK_PER_PIXEL}px)`
+      (elapsed, offset, guided) => style({
+        transform: `translateY(${(elapsed - (!guided ? offset : 30) - 20) / TICK_PER_PIXEL}px)`
       })
     )}
   >

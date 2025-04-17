@@ -5,7 +5,7 @@ import { settings } from '../../state'
 const colors = ['red', 'pink', 'grape', 'violet', 'indigo', 'blue', 'cyan', 'teal', 'green', 'lime', 'yellow', 'orange']
 
 const HandColor = ({ $atom }: { $atom: typeof settings.$rightColor }) => (
-  <sl-select value={$atom} on:sl-change={(value: any) => $atom.set(value.currentTarget.value)}>
+  <sl-select value={$atom} on:sl-change={(value) => $atom.set(value.currentTarget.value as settings.Color)}>
     <div slot="prefix" className="color-swatch"
          style={$$.with($atom, color => `background: var(--color-${color}-6);`)} />
     {colors.map((color) => (
@@ -40,12 +40,6 @@ const NoteNames = () => (
         <sl-option value="all">All keys</sl-option>
         <sl-option value="cs">Only Cs</sl-option>
         <sl-option value="c4">Only C4</sl-option>
-
-        {[
-          node('sl-option', { value: 'all' }).mount('All keys'),
-          node('sl-option', { value: 'cs' }).mount('Only Cs'),
-          node('sl-option', { value: 'c4' }).mount('Only C4')
-        ]}
       </sl-select>
     </label>
 
