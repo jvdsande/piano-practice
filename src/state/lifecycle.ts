@@ -1,22 +1,19 @@
 import Meyda from 'meyda'
 import { Debug } from '../utils/debug.ts'
 
+import * as Music from '../utils/music.ts'
+
 import { Player } from './player.ts'
 import * as track from './track.ts'
 import * as elapsed from './elapsed.ts'
 import * as settings from './settings.ts'
 
-const Lifecycle = {
-  played: [] as string[],
-  reset: () => {
-    Lifecycle.played = []
-  }
-}
+const played = new Set<string>()
 
 function advanceScore() {
   const endTick = track.$endTime.get()
-  const playedNotes = [...Lifecycle.played, Debug.note]
-  Lifecycle.reset()
+  const playedNotes = [...played, Debug.note]
+  played.clear()
   if (settings.$playing.get()) {
     elapsed.$elapsedTicks.set(Player.getTicks())
   }
@@ -52,17 +49,16 @@ function setupAudioStream() {
       windowingFunction: 'sine',
       featureExtractors: ['chroma', 'rms'],
       callback: (args: any) => {
-        const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
         const trigger = Math.round(args.rms * 1000 / settings.$sensitivity.get())
 
         if (trigger) {
-          const played: string[] = []
+          const newlyPlayed: string[] = []
           args.chroma.forEach((c: number, i: number) => {
-            if (c > 0.8) played.push(notes[i])
+            if (c > 0.8) newlyPlayed.push(Music.allNotes[i])
           })
 
-          if (played.length < 4) {
-            played.forEach((p) => Lifecycle.played.push(p))
+          if (newlyPlayed.length < 4) {
+            newlyPlayed.forEach((p) => played.add(p))
           }
         }
       }

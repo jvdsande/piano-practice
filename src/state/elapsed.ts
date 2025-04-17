@@ -6,10 +6,6 @@ import * as settings from './settings.ts'
 
 export const $elapsedTicks = atom(0)
 
-const $currentTempo = computed([track.$tempos], (tempos) => {
-  return (tempos[0] ?? { bpm: 120 }).bpm
-})
-
 export const $played = computed([track.$rightHand, track.$leftHand, $elapsedTicks, settings.$audioOffset], (right, left, elapsedTicks, audioOffset) => {
   const elapsed = elapsedTicks - audioOffset
 
@@ -22,21 +18,27 @@ export const $played = computed([track.$rightHand, track.$leftHand, $elapsedTick
   }
 })
 
-export const $currentRatio = computed([
+const $ratio = computed(settings.$playbackSpeed, (speed) => {
+  const base = Music.mapRange(speed, 0, 200, 0.6, 1.4)
+  const limit = Math.max(speed / 100, 0.1)
+
+  if (limit < base) return [limit, base]
+  return [base, limit]
+})
+
+export const $currentBpm = computed([
   settings.$playbackSpeed,
   settings.$adaptiveSpeed,
   settings.$guidingHand,
+  track.$tempo,
   $played,
-  track.$tempoRatio
-], (speed, adaptiveSpeed, guidingHand, played, tempoRatio) => {
+  $ratio
+], (speed, adaptiveSpeed, guidingHand, tempo, played, ratio) => {
   const nonGuidingHand = guidingHand === 'right' ? 'left' : 'right'
   const currentRatio = played[guidingHand].map((p) => p.ratio).sort((a, b) => a - b)[0]
   const nonGuidingRatio = played[nonGuidingHand].map((p) => p.ratio).sort((a, b) => a - b)[0]
   const appliedRatio = currentRatio ?? nonGuidingRatio
-  const applied = Music.mapRange(appliedRatio, 0, 1, tempoRatio[0], tempoRatio[1]) * 100
+  const applied = Music.mapRange(appliedRatio, 0, 1, ratio[0], ratio[1]) * 100
 
-  return (adaptiveSpeed ? applied : speed)
-})
-export const $currentBpm = computed([$currentTempo, $currentRatio], (currentTempo, ratio) => {
-  return currentTempo * ratio / 100
+  return (adaptiveSpeed ? applied : speed) * tempo / 100
 })

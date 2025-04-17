@@ -32,7 +32,6 @@ export const loadMidiFile = async (e: any) => {
   const arr = await target.files?.item(0)?.arrayBuffer()
   const midi = new Midi(arr)
 
-
   const ratio = (midi.tracks[0]?.notes[0]?.durationTicks ?? 0) / (midi.tracks[0]?.notes[0]?.duration ?? 1)
   const tracks = midi.tracks.map((track) => track.notes.map((note) => ({
     octave: note.octave,
@@ -47,11 +46,7 @@ export const loadMidiFile = async (e: any) => {
   track.$candidateTracks.set(tracks)
   track.$leftTrack.set(1)
   track.$rightTrack.set(0)
-  track.$tempos.set(midi.header.tempos.map((t) => ({
-    speed: (t.bpm * midi.header.ppq) / (60 * 1000),
-    bpm: t.bpm,
-    from: t.ticks
-  })))
+  track.$tempo.set(midi.header.tempos[0]?.bpm ?? 120)
 
   Player.setMidi(midi)
 }
