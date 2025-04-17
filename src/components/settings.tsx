@@ -2,13 +2,13 @@ import { node, $$ } from '@nanotree/core'
 
 import { settings } from '../state/index.ts'
 
-import { Header } from './settings/header.tsx'
-import { Appearance } from './settings/appearance.tsx'
-import { PlayAlong } from './settings/play-along.tsx'
-import { Playback } from './settings/playback.tsx'
 import { Tempo } from './settings/tempo.tsx'
-import { Advanced } from './settings/advanced.tsx'
+import { Header } from './settings/header.tsx'
 import { Credits } from './settings/credits.tsx'
+import { Advanced } from './settings/advanced.tsx'
+import { Playback } from './settings/playback.tsx'
+import { PlayAlong } from './settings/play-along.tsx'
+import { Appearance } from './settings/appearance.tsx'
 
 import './settings.css'
 

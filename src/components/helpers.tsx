@@ -20,7 +20,7 @@ export const NoteName = ({ key } : { key: Pick<Note, 'pitch' | 'octave'> }) => (
 
 export const Spark = () => <div static className="spark" />
 
-export const Input = (
+export const InputWrapper = (
   { className, $icon }: { className: string, $icon: AnyStore<string> },
   $children: NanotreeNode[]
 ) => (

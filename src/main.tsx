@@ -5,10 +5,10 @@ import './state/lifecycle.ts'
 
 import { style } from './components/helpers.tsx'
 import { Score } from './components/score.tsx'
-import { Controls } from './components/controls.tsx'
-import { Keyboard } from './components/keyboard.tsx'
 import { Landing } from './components/landing.tsx'
 import { Settings } from './components/settings.tsx'
+import { Controls } from './components/controls.tsx'
+import { Keyboard } from './components/keyboard.tsx'
 
 import '@shoelace-style/shoelace'
 
@@ -29,11 +29,11 @@ const Main = (
         '--non-guiding-hand-opacity': nonGuidingOpacity / 100
       })
     )}
-    data-controls={$$.with(settings.$controls, c => c ? 'true' : 'false')}
-    data-right={settings.$rightColor}
     data-left={settings.$leftColor}
-    data-non-guiding-opacity={$$.with(settings.$nonGuidingOpacity, o => `${o}`)}
+    data-right={settings.$rightColor}
     data-guiding-hand={settings.$guidingHand}
+    data-controls={$$.with(settings.$controls, c => c ? 'true' : 'false')}
+    data-non-guiding-opacity={$$.with(settings.$nonGuidingOpacity, o => `${o}`)}
   >
     <Landing />
     <Settings />

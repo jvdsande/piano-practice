@@ -3,26 +3,26 @@ import { node, $$ } from '@nanotree/core'
 import { Actions, elapsed, settings, track } from '../state/index.ts'
 import { Player } from '../state/player.ts'
 
-import { Input, Range } from './helpers.tsx'
+import { InputWrapper, Range } from './helpers.tsx'
 
 import './controls.css'
 
 const ControlsToggle = () => (
-  <Input
+  <InputWrapper
     className='controls-toggle'
     $icon={$$.with(settings.$controls, controls => controls ? 'fa-angles-right' : 'fa-angles-left')}
   >
     <button static on:click={Actions.toggleControls} />
-  </Input>
+  </InputWrapper>
 )
 
 const PlayPauseToggle = () => (
-  <Input
+  <InputWrapper
     className='play'
     $icon={$$.with(settings.$playing, (playing) => playing ? 'fa-pause' : 'fa-play')}
   >
     <button static hello-world="" on:click={Actions.togglePlay} />
-  </Input>
+  </InputWrapper>
 )
 
 const PlayPauseFullscreenToggle = () => (
@@ -30,27 +30,27 @@ const PlayPauseFullscreenToggle = () => (
 )
 
 const GuideToggle = () => (
-  <Input
+  <InputWrapper
     className='listen'
     $icon={$$.with(settings.$guided, (guided) => guided ? 'fa-microphone' : 'fa-microphone-slash')}
   >
     <button static on:click={Actions.toggleListening} />
-  </Input>
+  </InputWrapper>
 )
 
 const ResetButton = () => (
-  <Input className='reset' $icon={$$.single('fa-rotate-left')}>
+  <InputWrapper className='reset' $icon={$$.single('fa-rotate-left')}>
     <button static on:click={Actions.reset} />
-  </Input>
+  </InputWrapper>
 )
 
 const OpenButton = () => (
-  <Input
+  <InputWrapper
     className='open'
     $icon={$$.single('fa-folder-open')}
   >
     <input static type='file' accept='.mid,.midi' on:change={Actions.loadMidiFile} />
-  </Input>
+  </InputWrapper>
 )
 
 const ProgressBar = () => (
@@ -65,9 +65,9 @@ const ProgressBar = () => (
 )
 
 export const SettingsButton = () => (
-  <Input className='settings' $icon={$$.single('fa-gear')}>
+  <InputWrapper className='settings' $icon={$$.single('fa-gear')}>
     <button static on:click={Actions.toggleSettings} />
-  </Input>
+  </InputWrapper>
 )
 
 export const PlaybackSpeed = ({ withLabels = false }) => (
