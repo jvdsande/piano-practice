@@ -85,7 +85,8 @@ class MidiPlayer {
     Tone.getTransport().bpm.value = midi.header.tempos.length > 0 ? midi.header.tempos[0].bpm : 120
     Tone.getTransport().PPQ = midi.header.ppq
 
-    this.ratio = (midi.tracks[0]?.notes[0]?.durationTicks ?? 0) / (midi.tracks[0]?.notes[0]?.duration ?? 1)
+    const firstNonZeroNote = midi.tracks[0]?.notes?.findIndex((note) => note.duration)
+    this.ratio = (midi.tracks[0]?.notes[firstNonZeroNote]?.durationTicks ?? 0) / (midi.tracks[0]?.notes[firstNonZeroNote]?.duration ?? 1)
 
     elapsed.$currentBpm.listen((val) => {
       if (val) {
